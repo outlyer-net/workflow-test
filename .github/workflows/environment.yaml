@@ -1,0 +1,16 @@
+on: [push, workflow_dispatch]
+
+jobs:
+  environment:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Display environment variables
+        run: env
+      - run: export
+      - name: Test github context
+        run: echo "${{ github }}"
+  workflow-dispatch-job:
+    runs-on: ubuntu-22.04
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+      - run: echo "Triggered by workflow_dispatch"
